@@ -24,6 +24,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 # code referenced: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/skeleton_website
+# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Home_page
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^luncheon/', include('luncheon.urls')),
