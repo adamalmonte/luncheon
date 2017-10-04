@@ -86,3 +86,11 @@ class Eatery(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def walking_distance(self):
+		return "1 min"
+
+	def open_now(self):
+		return "Yes!"
+
+	open_now.short_description="Open Now?"
