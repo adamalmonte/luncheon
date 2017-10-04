@@ -26,8 +26,8 @@ from django.conf.urls.static import static
 # code referenced: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/skeleton_website
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-	url(r'^lunch/', include('lunch.urls')),
-    url(r'^$', RedirectView.as_view(url='/lunch/', permanent=True)),
+	url(r'^luncheon/', include('luncheon.urls')),
+    url(r'^$', RedirectView.as_view(url='/luncheon/', permanent=True)),
 ]
 
 # code referenced: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/skeleton_website
