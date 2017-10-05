@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Eatery List</h1>
+
+    {% if eatery_list %}
+    <ul>
+
+      {% for eatery in eatery_list %}
+      <li>
+        <a href="{{ eatery.get_absolute_url }}">{{ eatery.name }}</a> (Rating: {{eatery.inHouseRating}} / 5) (Walking distance: {{ eatery.walking_distance }})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no eateries defined in Luncheon.</p>
+    {% endif %}       
+{% endblock %}

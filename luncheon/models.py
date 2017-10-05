@@ -1,6 +1,7 @@
 from django.db import models
 import uuid # Required for unique book instances
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.urlresolvers import reverse
 
 """
 heavy inspiration from:
@@ -16,7 +17,6 @@ class Eatery(models.Model):
 		max_length=255,
 		help_text="Enter the eatery's name!",
 		verbose_name="Eatery Name",
-		primary_key=True
 	)
 	
 	address = models.CharField(
@@ -66,11 +66,6 @@ class Eatery(models.Model):
 		blank=True,
 		null=True
 	)
-	
-	id = models.UUIDField(
-		default=uuid.uuid4,
-		editable=False
-	)
 
 	# Metadata
 	class Meta:
@@ -82,7 +77,7 @@ class Eatery(models.Model):
 	    """
 	    Returns the url to access a particular instance of the model.
 	    """
-	    return reverse('model-detail-view', args=[str(self.id)])
+	    return reverse('eatery-detail', args=[str(self.id)])
 
 	def __str__(self):
 		return self.name
