@@ -14,6 +14,7 @@ def index(request):
 
 class EateryListView(generic.ListView):
 	model = Eatery
+	paginate_by = 10
 
 class EateryDetailView(generic.DetailView):
 	model = Eatery
