@@ -1,7 +1,11 @@
 from django.db import models
-import uuid # Required for unique book instances
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.urlresolvers import reverse
+import googlemaps
+from .apikeys import get_gmaps_api_key
+
+gmapsAPIkey = get_gmaps_api_key()
+gmaps = googlemaps.Client(key=gmapsAPIkey)
 
 """
 heavy inspiration from:
@@ -83,7 +87,13 @@ class Eatery(models.Model):
 		return self.name
 
 	def walking_distance(self):
-		return "1 min"
+		if (self.address is None):
+			return "Unknown :("
+
+		fueledAddress="568 Broadway, New York, NY"
+		distance_matrix = gmaps.distance_matrix(fueledAddress, self.address, mode="walking")
+
+		return distance_matrix['rows'][0]['elements'][0]['duration']['text']
 
 	def open_now(self):
 		return "Yes!"
