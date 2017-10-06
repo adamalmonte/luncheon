@@ -3,11 +3,24 @@
 {% block content %}
   <h1>{{ eatery.name }}</h1>
 
-  <h2><strong>Address:</strong> <a href="">{{ eatery.address }}</a></h2>
-  <h3><strong>Walking distance:</strong> <a href="">{{ eatery.walking_distance }}</a></h3>
+  <h2><strong>Address:</strong>
+  	<a href="{{ eatery.maps_link }}">
+  		{{ eatery.address }}
+  	</a>
+  </h2>
+  
+  <h3><strong>Walking distance:</strong>
+  	<a href="{{ eatery.directions_link }}">
+  		{{ eatery.walking_distance }}
+  	</a>
+  </h3>
+  
   <p><strong>Google Says:</strong> {{ eatery.googleStarRating }}</p>
+  
   <p><strong>We Say:</strong> {{ eatery.inHouseStarRating }}</p> 
+  
   <p><strong>Pricing:</strong> {{ eatery.priceLevel }}</p>  
+  
   <p><strong>Open Now?</strong> {{ eatery.open_now }}</p>  
 
 {% endblock %}

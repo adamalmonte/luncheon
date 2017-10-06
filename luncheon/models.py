@@ -1,11 +1,16 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.urlresolvers import reverse
+import urllib
 import googlemaps
 from .apikeys import get_gmaps_api_key
 
 gmapsAPIkey = get_gmaps_api_key()
 gmaps = googlemaps.Client(key=gmapsAPIkey)
+
+#defining some variables we wlll need
+fueledAddress="568 Broadway, New York, NY"
+safeFueledAddress = urllib.parse.quote(fueledAddress, safe='')
 
 """
 heavy inspiration from:
@@ -90,10 +95,18 @@ class Eatery(models.Model):
 		if (self.address is None):
 			return "Unknown :("
 
-		fueledAddress="568 Broadway, New York, NY"
 		distance_matrix = gmaps.distance_matrix(fueledAddress, self.address, mode="walking")
-
 		return distance_matrix['rows'][0]['elements'][0]['duration']['text']
+
+	def maps_link(self):
+		safeAddress = urllib.parse.quote(self.address, safe='')
+		maps_link = 'https://www.google.com/maps/search/?api=1&query=' + safeAddress
+		return maps_link
+
+	def directions_link(self):
+		safeAddress = urllib.parse.quote(self.address, safe='')
+		directions_link = 'https://www.google.com/maps/dir/?api=1&origin=' + safeFueledAddress + '&destination=' + safeAddress
+		return directions_link
 
 	def open_now(self):
 		return "Yes!"
