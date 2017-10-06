@@ -100,13 +100,21 @@ class Eatery(models.Model):
 
 	def maps_link(self):
 		safeAddress = urllib.parse.quote(self.address, safe='')
-		maps_link = 'https://www.google.com/maps/search/?api=1&query=' + safeAddress
-		return maps_link
+
+		if safeAddress:
+			maps_link = 'https://www.google.com/maps/search/?api=1&query=' + safeAddress
+			return maps_link
+
+		return ''
 
 	def directions_link(self):
 		safeAddress = urllib.parse.quote(self.address, safe='')
-		directions_link = 'https://www.google.com/maps/dir/?api=1&origin=' + safeFueledAddress + '&destination=' + safeAddress
-		return directions_link
+
+		if safeAddress:
+			directions_link = 'https://www.google.com/maps/dir/?api=1&origin=' + safeFueledAddress + '&destination=' + safeAddress
+			return directions_link
+
+		return ''
 
 	def open_now(self):
 		return "Yes!"

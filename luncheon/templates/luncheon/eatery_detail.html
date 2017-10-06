@@ -3,17 +3,33 @@
 {% block content %}
   <h1>{{ eatery.name }}</h1>
 
+  {% if eatery.address %}
   <h2><strong>Address:</strong>
-  	<a href="{{ eatery.maps_link }}">
-  		{{ eatery.address }}
-  	</a>
+  	{% if eatery.maps_link %}
+  		<a href="{{ eatery.maps_link }}">
+  	{% endif %}
+
+		{{ eatery.address }}
+
+  	{% if eatery.maps_link %}
+  		</a>
+  	{% endif %}
   </h2>
+  {% endif %}
   
+  {% if eatery.walking_distance %}
   <h3><strong>Walking distance:</strong>
-  	<a href="{{ eatery.directions_link }}">
-  		{{ eatery.walking_distance }}
-  	</a>
+  	{% if eatery.directions_link %}
+  		<a href="{{ eatery.directions_link }}">
+  	{% endif %}
+
+		{{ eatery.walking_distance }}
+
+  	{% if eatery.directions_link %}
+  		</a>
+  	{% endif %}
   </h3>
+  {% endif %}
   
   <p><strong>Google Says:</strong> {{ eatery.googleStarRating }}</p>
   
