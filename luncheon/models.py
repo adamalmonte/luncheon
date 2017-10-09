@@ -117,6 +117,40 @@ class Eatery(models.Model):
 		return ''
 
 	def open_now(self):
-		return "Yes!"
+		details = gmaps.places(self.name)
+
+		try:
+			if details['results'][0]['opening_hours']['open_now']:
+				return "Yes!"
+			else:
+				return "Nope!"
+		except KeyError:
+			pass
+
+		return "Unsure!"
+
+	def get_google_rating(self):
+		details = gmaps.places(self.name)
+
+		try:
+			if details['results'][0]['rating']:
+				return details['results'][0]['rating']
+		except KeyError:
+			pass
+
+		return ''
+
+	def get_google_price_level(self):
+		details = gmaps.places(self.name)
+		priceString = ''
+
+		try:
+			if details['results'][0]['price_level']:
+				for i in range(details['results'][0]['price_level']):
+					priceString += '$'
+		except KeyError:
+			pass
+
+		return priceString
 
 	open_now.short_description="Open Now?"

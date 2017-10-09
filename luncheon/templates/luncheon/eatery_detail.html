@@ -31,12 +31,18 @@
   </h3>
   {% endif %}
   
-  <p><strong>Google Says:</strong> {{ eatery.googleStarRating }}</p>
-  
+  {% if eatery.get_google_rating %}
+  <p><strong>Google Says:</strong> {{ eatery.get_google_rating }} Stars</p>
+  {% endif %}
+
   <p><strong>We Say:</strong> {{ eatery.inHouseStarRating }}</p> 
   
-  <p><strong>Pricing:</strong> {{ eatery.priceLevel }}</p>  
-  
-  <p><strong>Open Now?</strong> {{ eatery.open_now }}</p>  
+  {% if eatery.get_google_price_level %}
+  <p><strong>Pricing:</strong> {{ eatery.get_google_price_level }}</p>
+  {% endif %}
+ 
+  {% if eatery.open_now %}  
+  <p><strong>Open Now?</strong> {{ eatery.open_now }}</p>
+  {% endif %}
 
 {% endblock %}
