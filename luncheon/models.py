@@ -33,30 +33,9 @@ class Eatery(models.Model):
 		blank=True,
 		null=True
 	)
-	
-	googleStarRating = models.IntegerField(
-		verbose_name="Star Rating (Google)",
-		validators = [
-			MaxValueValidator(5),
-			MinValueValidator(1)
-		],
-		blank=True,
-		null=True
 
-	)
-	
 	inHouseStarRating = models.IntegerField(
 		verbose_name="Star Rating (Fueled)",
-		validators = [
-			MaxValueValidator(5),
-			MinValueValidator(1)
-		],
-		blank=True,
-		null=True
-	)
-	
-	priceLevel = models.IntegerField(
-		verbose_name="Price Level",
 		validators = [
 			MaxValueValidator(5),
 			MinValueValidator(1)
@@ -154,3 +133,5 @@ class Eatery(models.Model):
 		return priceString
 
 	open_now.short_description="Open Now?"
+	get_google_rating.short_description="Google Rating"
+	get_google_price_level.short_description="Price Level"
