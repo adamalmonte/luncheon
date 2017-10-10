@@ -5,13 +5,6 @@ import urllib
 import googlemaps
 from .apikeys import get_gmaps_api_key
 
-gmapsAPIkey = get_gmaps_api_key()
-gmaps = googlemaps.Client(key=gmapsAPIkey)
-
-#defining some variables we wlll need
-fueledAddress="568 Broadway, New York, NY"
-safeFueledAddress = urllib.parse.quote(fueledAddress, safe='')
-
 """
 heavy inspiration from:
 https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Models
@@ -44,12 +37,6 @@ class Eatery(models.Model):
 		null=True
 	)
 	
-	hoursOfOperation = models.DurationField(
-		verbose_name="Hours of Operation",
-		blank=True,
-		null=True
-	)
-	
 	link = models.URLField(
 		blank=True,
 		null=True
@@ -70,68 +57,68 @@ class Eatery(models.Model):
 	def __str__(self):
 		return self.name
 
-	def walking_distance(self):
-		if (self.address is None):
-			return "Unknown :("
+	def getGoogleData(self):
+		gmapsAPIkey = get_gmaps_api_key()
+		gmaps = googlemaps.Client(key=gmapsAPIkey)
 
-		distance_matrix = gmaps.distance_matrix(fueledAddress, self.address, mode="walking")
-		return distance_matrix['rows'][0]['elements'][0]['duration']['text']
+		fueledAddress="568 Broadway, New York, NY"
+		safeFueledAddress = urllib.parse.quote(fueledAddress, safe='')
 
-	def maps_link(self):
+		walking_distance = ''
+		maps_link = ''
+		directions_link = ''
+		open_now = 'Unsure!'
+		google_rating = ''
+		price_level = ''
+		
+		# calculate walking distance with Distance Matrix API
+		if (self.address):
+			distance_matrix = gmaps.distance_matrix(fueledAddress, self.address, mode="walking")
+			try:
+				walking_distance = distance_matrix['rows'][0]['elements'][0]['duration']['text']
+			except KeyError:
+				pass
+
 		safeAddress = urllib.parse.quote(self.address, safe='')
 
+		# get link to map with location pinned and link to map with directions loaded up
 		if safeAddress:
 			maps_link = 'https://www.google.com/maps/search/?api=1&query=' + safeAddress
-			return maps_link
-
-		return ''
-
-	def directions_link(self):
-		safeAddress = urllib.parse.quote(self.address, safe='')
-
-		if safeAddress:
 			directions_link = 'https://www.google.com/maps/dir/?api=1&origin=' + safeFueledAddress + '&destination=' + safeAddress
-			return directions_link
 
-		return ''
+		# get more detailed info from the Google Places API
+		geocodedAddress = gmaps.geocode(self.address)
+		latLong = geocodedAddress[0]['geometry']['location']
 
-	def open_now(self):
-		details = gmaps.places(self.name)
+		place_details = gmaps.places(self.name, latLong, 100)
 
-		try:
-			if details['results'][0]['opening_hours']['open_now']:
-				return "Yes!"
-			else:
-				return "Nope!"
-		except KeyError:
-			pass
+		#place_details = {'results': [{'price_level' : 1}]}
 
-		return "Unsure!"
+		if (place_details is not None):
+			# try to see if restaurant is open now
+			try:
+				if place_details['results'][0]['opening_hours']['open_now']:
+					open_now = "Yes!"
+				else:
+					open_now = "Nope!"
+			except KeyError:
+				pass
 
-	def get_google_rating(self):
-		details = gmaps.places(self.name)
+			# try to see if Google has a rating out of 5 for the restaurant
+			try:
+				if place_details['results'][0]['rating']:
+					google_rating = place_details['results'][0]['rating']
+			except KeyError:
+				pass
 
-		try:
-			if details['results'][0]['rating']:
-				return details['results'][0]['rating']
-		except KeyError:
-			pass
+			# try to see if Google has a price rating
+			try:
+				if place_details['results'][0]['price_level']:
+					for i in range(place_details['results'][0]['price_level']):
+						price_level += '$'
+			except KeyError:
+				pass
 
-		return ''
-
-	def get_google_price_level(self):
-		details = gmaps.places(self.name)
-		priceString = ''
-
-		try:
-			if details['results'][0]['price_level']:
-				for i in range(details['results'][0]['price_level']):
-					priceString += '$'
-		except KeyError:
-			pass
-
-		return priceString
-
-	open_now.short_description="Open Now?"
-	get_google_rating.short_description="Google Rating"
-	get_google_price_level.short_description="Price Level"
+		googleApiDict = {'walking_distance' : walking_distance, 'maps_link' : maps_link, 'directions_link' : directions_link, 'open_now' : open_now, 'google_rating' : google_rating, 'price_level' : price_level}
+		
+		return googleApiDict

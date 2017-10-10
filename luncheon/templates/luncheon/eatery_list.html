@@ -8,7 +8,7 @@
 
       {% for eatery in eatery_list %}
       <li>
-        <a href="{{ eatery.get_absolute_url }}">{{ eatery.name }}</a> (Rating: {{eatery.inHouseRating}} / 5) (Walking distance: {{ eatery.walking_distance }})
+        <a href="{{ eatery.get_absolute_url }}">{{ eatery.name }}</a>
       </li>
       {% endfor %}
 

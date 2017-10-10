@@ -5,7 +5,7 @@ from .models import Eatery
 
 
 class EateryAdmin(admin.ModelAdmin):
-	list_display=('name', 'open_now', 'address', 'walking_distance', 'inHouseStarRating', 'get_google_rating', 'get_google_price_level', 'id')
-	fields=['name', 'address', ('inHouseStarRating'), 'link']
+	list_display=('name', 'address', 'inHouseStarRating', 'id')
+	fields=['name', 'address', ('inHouseStarRating')]
 
 admin.site.register(Eatery, EateryAdmin)

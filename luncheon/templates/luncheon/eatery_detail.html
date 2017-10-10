@@ -5,44 +5,44 @@
 
   {% if eatery.address %}
   <h2><strong>Address:</strong>
-  	{% if eatery.maps_link %}
-  		<a href="{{ eatery.maps_link }}">
+  	{% if googleData.maps_link %}
+  		<a href="{{ googleData.maps_link }}">
   	{% endif %}
 
 		{{ eatery.address }}
 
-  	{% if eatery.maps_link %}
+  	{% if googleData.maps_link %}
   		</a>
   	{% endif %}
   </h2>
   {% endif %}
   
-  {% if eatery.walking_distance %}
+  {% if googleData.walking_distance %}
   <h3><strong>Walking distance:</strong>
-  	{% if eatery.directions_link %}
-  		<a href="{{ eatery.directions_link }}">
+  	{% if googleData.directions_link %}
+  		<a href="{{ googleData.directions_link }}">
   	{% endif %}
 
-		{{ eatery.walking_distance }}
+		{{ googleData.walking_distance }}
 
-  	{% if eatery.directions_link %}
+  	{% if googleData.directions_link %}
   		</a>
   	{% endif %}
   </h3>
   {% endif %}
   
-  {% if eatery.get_google_rating %}
-  <p><strong>Google Says:</strong> {{ eatery.get_google_rating }} Stars</p>
+  {% if googleData.google_rating %}
+  <p><strong>Google Says:</strong> {{ googleData.google_rating }} Stars</p>
   {% endif %}
 
-  <p><strong>We Say:</strong> {{ eatery.inHouseStarRating }}</p> 
+  <!-- <p><strong>We Say:</strong> {{ eatery.inHouseStarRating }}</p>  -->
   
-  {% if eatery.get_google_price_level %}
-  <p><strong>Pricing:</strong> {{ eatery.get_google_price_level }}</p>
+  {% if googleData.price_level %}
+  <p><strong>Pricing:</strong> {{ googleData.price_level }}</p>
   {% endif %}
- 
-  {% if eatery.open_now %}  
-  <p><strong>Open Now?</strong> {{ eatery.open_now }}</p>
+
+  {% if googleData.open_now %}  
+  <p><strong>Open Now?</strong> {{ googleData.open_now }}</p>
   {% endif %}
 
 {% endblock %}
