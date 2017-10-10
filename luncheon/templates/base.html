@@ -3,7 +3,7 @@
 <head>
   <!-- source: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Home_page -->
   
-  {% block title %}<title>Fueled Backend Test - Luncheon</title>{% endblock %}
+  {% block title %}<title>Lunch Dispute Resolution Software</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,19 +12,19 @@
   
   <!-- Add additional CSS in static file -->
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static '/css/styles.css' %}">
 </head>
 
 <body>
 
-  <div class="container-fluid">
+  <div class="container-fluid  content">
 
     <div class="row">
-      <div class="col-sm-2">
+      <div class="col-sm-2  sidenav">
       {% block sidebar %}
       <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'eateries' %}">All Eateries</a></li>
+          <li><a href="{% url 'index' %}"><h3>Home</h3></a></li>
+          <li><a href="{% url 'eateries' %}"><h3>All Eateries</h3></a></li>
       </ul>
      {% endblock %}
       </div>

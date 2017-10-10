@@ -3,8 +3,10 @@
 {% block content %}
 <h1>Luncheon</h1>
 
-  <p>Welcome to Fueled's Lunch Dispute Resolution Software.</p>
+<div class="well">
+	<h4>Welcome to Fueled's Lunch Dispute Resolution Software!</h4>
 
-  <p>Currently, the team has registered {{ numEateries }} eateries on this app.</p>
+	<p>Currently, the team has registered {{ numEateries }} eateries on this app. Please navigate to <a href="{% url 'eateries' %}">All Eateries</a> in the navigation area to see them.</p>
+</div>
 
 {% endblock %}

@@ -27,25 +27,20 @@ class Eatery(models.Model):
 		null=True
 	)
 
-	inHouseStarRating = models.IntegerField(
-		verbose_name="Star Rating (Fueled)",
-		validators = [
-			MaxValueValidator(5),
-			MinValueValidator(1)
-		],
+	website_link = models.URLField(
 		blank=True,
 		null=True
 	)
-	
-	link = models.URLField(
+
+	menu_link = models.URLField(
 		blank=True,
 		null=True
 	)
 
 	# Metadata
 	class Meta:
-		ordering = ["inHouseStarRating"]
-		verbose_name_plural = "eateries"
+		ordering = ['name']
+		verbose_name_plural = 'eateries'
 
 	# Methods
 	def get_absolute_url(self):
@@ -92,15 +87,13 @@ class Eatery(models.Model):
 
 		place_details = gmaps.places(self.name, latLong, 100)
 
-		#place_details = {'results': [{'price_level' : 1}]}
-
 		if (place_details is not None):
 			# try to see if restaurant is open now
 			try:
 				if place_details['results'][0]['opening_hours']['open_now']:
-					open_now = "Yes!"
+					open_now = 'Yes!'
 				else:
-					open_now = "Nope!"
+					open_now = 'Nope!'
 			except KeyError:
 				pass
 

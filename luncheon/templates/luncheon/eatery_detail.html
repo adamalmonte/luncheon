@@ -1,48 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ eatery.name }}</h1>
+  <h1>
+    {% if eatery.website_link %}
+        <a href="{{ eatery.website_link }}">
+    {% endif %}
+
+        {{ eatery.name }}
+
+    {% if eatery.website_link %}
+        </a>
+    {% endif %}
+
+    {% if eatery.menu_link %}
+        - <a href="{{ eatery.menu_link }}">Menu</a>
+    {% endif %}
+  </h1>
 
   {% if eatery.address %}
   <h2><strong>Address:</strong>
-  	{% if googleData.maps_link %}
-  		<a href="{{ googleData.maps_link }}">
-  	{% endif %}
+    {% if googleData.maps_link %}
+        <a href="{{ googleData.maps_link }}">
+    {% endif %}
 
-		{{ eatery.address }}
+        {{ eatery.address }}
 
-  	{% if googleData.maps_link %}
-  		</a>
-  	{% endif %}
+    {% if googleData.maps_link %}
+        </a>
+    {% endif %}
   </h2>
   {% endif %}
-  
+
   {% if googleData.walking_distance %}
   <h3><strong>Walking distance:</strong>
-  	{% if googleData.directions_link %}
-  		<a href="{{ googleData.directions_link }}">
-  	{% endif %}
+    {% if googleData.directions_link %}
+        <a href="{{ googleData.directions_link }}">
+    {% endif %}
 
-		{{ googleData.walking_distance }}
+        {{ googleData.walking_distance }}
 
-  	{% if googleData.directions_link %}
-  		</a>
-  	{% endif %}
+    {% if googleData.directions_link %}
+        </a>
+    {% endif %}
   </h3>
   {% endif %}
   
   {% if googleData.google_rating %}
-  <p><strong>Google Says:</strong> {{ googleData.google_rating }} Stars</p>
+  <h3><strong>Google Says:</strong> {{ googleData.google_rating }} stars out of 5</h3>
   {% endif %}
 
   <!-- <p><strong>We Say:</strong> {{ eatery.inHouseStarRating }}</p>  -->
   
   {% if googleData.price_level %}
-  <p><strong>Pricing:</strong> {{ googleData.price_level }}</p>
+  <h3><strong>Pricing:</strong> {{ googleData.price_level }}</h3>
   {% endif %}
 
   {% if googleData.open_now %}  
-  <p><strong>Open Now?</strong> {{ googleData.open_now }}</p>
+  <h3><strong>Open Now?</strong> {{ googleData.open_now }}</h3>
   {% endif %}
 
 {% endblock %}
