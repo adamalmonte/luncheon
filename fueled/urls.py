@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^luncheon/', include('luncheon.urls')),
     url(r'^$', RedirectView.as_view(url='/luncheon/', permanent=True)),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
 
 # code referenced: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/skeleton_website
