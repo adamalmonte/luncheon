@@ -4,3 +4,19 @@
     padding: 0;
     list-style: none;
 }
+
+.eatery-list__item {
+	margin-bottom: 20px;
+}
+
+.logout-button {
+	margin-top: 20px;
+}
+
+.logout-button__label {
+	margin: 0 0 10px 0;
+}
+
+.logout-button__button {
+	margin: 0;
+}

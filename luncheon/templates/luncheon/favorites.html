@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Favorites</h1>
+
+    {% if eatery_list %}
+      <ul class="eatery-list">
+
+        {% for eatery in eatery_list %}
+        <li>
+          <h4>
+            <span>
+              <a href="{{ eatery.get_absolute_url }}">{{ eatery.name }}</a>
+              {% if eatery.menu_link %}
+              - (<a href="{{ eatery.menu_link }}">Menu</a>)
+              {% endif %} 
+              
+              {% if eatery.website_link %}
+              - (<a href="{{ eatery.website_link }}">Site</a>)
+              {% endif %}
+            </span>
+          </h4>
+        </li>
+        {% endfor %}
+
+      </ul>
+
+    {% else %}
+      <p>You have not favorited any eateries.</p>
+    {% endif %}       
+{% endblock %}

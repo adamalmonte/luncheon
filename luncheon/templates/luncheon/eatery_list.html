@@ -12,7 +12,7 @@
     <ul class="eatery-list">
 
       {% for eatery in eatery_list %}
-      <li>
+      <li class="eatery-list__item">
         <h4>
           <span>
             <a href="{{ eatery.get_absolute_url }}">{{ eatery.name }}</a>
@@ -25,6 +25,14 @@
             {% endif %}
           </span>
         </h4>
+        <h5>
+          Favorited by {{ eatery.total_favorites }}
+          {% if eatery.total_favorites == 1 %}
+              person 
+          {% else %} 
+              people 
+          {% endif %}
+        </h5>
       </li>
       {% endfor %}
 

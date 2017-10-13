@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+
 import urllib
 import googlemaps
 from .apikeys import get_gmaps_api_key
@@ -37,6 +39,8 @@ class Eatery(models.Model):
 		null=True
 	)
 
+	favorited_by = models.ManyToManyField(User, blank=True)
+
 	# Metadata
 	class Meta:
 		ordering = ['name']
@@ -51,6 +55,9 @@ class Eatery(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def total_favorites(self):
+		return self.favorited_by.count()
 
 	def getGoogleData(self):
 		gmapsAPIkey = get_gmaps_api_key()

@@ -25,6 +25,20 @@
       <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}"><h3>Home</h3></a></li>
           <li><a href="{% url 'eateries' %}"><h3>All Eateries</h3></a></li>
+
+        {% if user.is_authenticated %}
+          <li class="logout-button">
+            <h4>=====</h4>
+            <h4 class="logout-button__label">Hello, {{ user.get_username }}!</h4>
+            <a href="{% url 'favorited-by' %}?next={{request.path}}"><h3 class="logout-button__button">Favorites</h3></a>
+            <a href="{% url 'logout' %}?next={{request.path}}"><h3 class="logout-button__button">Logout</h3></a>
+          </li>
+        {% else %}
+          <li>
+            <a href="{% url 'login'%}?next={{request.path}}"><h3>Login</h3></a>
+          </li>
+        {% endif %}
+
       </ul>
      {% endblock %}
       </div>
