@@ -13,9 +13,18 @@
     {% endif %}
 
     {% if eatery.menu_link %}
-        - <a href="{{ eatery.menu_link }}">Menu</a>
+        - <a href="{{ eatery.menu_link }}">(Menu)</a>
     {% endif %}
   </h1>
+
+  {% if user.is_authenticated %}
+    {% if favoritedByCurrentUser %}
+      <h3>(One of your <a href="{% url 'favorited-by' %}">favorites</a>!)</h3>
+    {% else %}
+      <h3><a href="{% url 'add-favorite-eatery' eatery.id %}">+ Add to favorites</a></h3>
+    {% endif %}
+    <br>
+  {% endif %}
 
   {% if eatery.address %}
   <h2><strong>Address:</strong>
@@ -49,8 +58,6 @@
   <h3><strong>Google Says:</strong> {{ googleData.google_rating }} stars out of 5</h3>
   {% endif %}
 
-  <!-- <p><strong>We Say:</strong> {{ eatery.inHouseStarRating }}</p>  -->
-  
   {% if googleData.price_level %}
   <h3><strong>Pricing:</strong> {{ googleData.price_level }}</h3>
   {% endif %}

@@ -20,3 +20,11 @@
 .logout-button__button {
 	margin: 0;
 }
+
+.add-favorite__form td {
+	padding-left: 15px;
+}
+
+.add-favorite__form input {
+	margin-top: 10px;
+}
